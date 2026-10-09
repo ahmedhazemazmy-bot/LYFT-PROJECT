@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LyftMate - Personal Shift Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- زرار الإعدادات (فوق على اليمين) -->
+        <button id="settings-btn" class="settings-icon-btn" title="Settings">⚙️</button>
+
+        <!-- 1. الهيدر ورسالة الترحيب (نظيفة بدون خطوط) -->
+        <header class="top-bar">
+            <div class="logo">Lyft<span>Mate</span></div>
+            <h1 class="welcome-text">
+                Welcome back, <span id="agent-name">Ahmed</span> 👋
+            </h1>
+        </header>
+
+        <!-- 2. رصيد الوقت (الميسينج والأوفر تايم) -->
+        <section class="balance-card">
+            <!-- الميسينج مينتس (قابلة للتعديل بالدقايق والثواني) -->
+            <div class="balance-item missing-box">
+                <span class="label">Total Missing (MM:SS):</span>
+                <!-- خلينا الرقم عبارة عن خانة إدخال عشان تدوس وتكتب على طول -->
+                <input type="text" id="missing-val-input" class="missing-input" value="00:00" title="Click to edit (MM:SS)">
+            </div>
+            
+            <!-- الأوفر تايم المستهدف -->
+            <div class="balance-item overtime-box">
+                <span class="label">Target Overtime:</span>
+                <select id="overtime-select">
+                    <option value="0">No Overtime</option>
+                    <option value="1">1 Hour</option>
+                    <option value="2">2 Hours</option>
+                    <option value="3">3 Hours</option>
+                    <option value="4">4 Hours</option>
+                    <option value="5">5 Hours</option>
+                    <option value="6">6 Hours</option>
+                    <option value="7">7 Hours</option>
+                    <option value="8">8 Hours</option>
+                    <option value="9">9 Hours</option>
+                    <option value="10">10 Hours</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- 3. إعدادات الشيفت والأوفات -->
+        <section class="schedule-section">
+            <h2>Shift Setup</h2>
+            <div class="schedule-inputs">
+                <div class="input-group">
+                    <label>Shift Start:</label>
+                    <select id="shift-start">
+                        <option value="07:00">07:00 AM</option>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="18:00">06:00 PM</option>
+                        <option value="19:00">07:00 PM</option>
+                        <option value="20:00" selected>08:00 PM</option>
+                        <option value="21:00">09:00 PM</option>
+                        <option value="22:00">10:00 PM</option>
+                        
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Day Off 1:</label>
+                    <select id="day-off-1">
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday" selected>Friday</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Day Off 2:</label>
+                    <select id="day-off-2">
+                        <option value="Saturday" selected>Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. قلب السيستم: زرار Available وعداد الشيفت -->
+        <section class="main-action">
+            <button id="go-available-btn" class="giant-btn">
+                GO AVAILABLE
+            </button>
+            
+            <div id="shift-timer-display" class="timer-box hidden">
+                <p>Remaining Shift Time:</p>
+                <h2 id="main-countdown">09:00:00</h2>
+                
+                <div class="timer-controls">
+                    <button id="pause-btn" class="control-btn">⏸ Pause</button>
+                    <button id="reset-btn" class="control-btn">🔄 Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. قسم الـ AUX -->
+        <section class="aux-section">
+            <h2>AUX Tracker</h2>
+            <div class="clean-grid">
+                <button class="aux-btn">Lunch</button>
+                <button class="aux-btn">Break 1</button>
+                <button class="aux-btn">Break 2</button>
+                <button class="aux-btn coaching">Coaching</button>
+            </div>
+            
+            <div class="login-prep-area">
+                <span class="prep-title">Login Prep:</span>
+                <div class="prep-bubbles">
+                    <button class="bubble-btn">Prep</button>
+                    <button class="bubble-btn">Prep</button>
+                    <button class="bubble-btn">Prep</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. إيميل الأعذار والتأخير الذكي -->
+        <section class="rta-section">
+            <h2>RTA Excuse Generator</h2>
+            <div class="rta-inputs">
+                <div class="input-group">
+                    <label>Delay Reason:</label>
+                    <select id="delay-reason">
+                        <option value="Transportation and Heavy Traffic">Transportation / Traffic</option>
+                        <option value="System Downtime">System Downtime</option>
+                        <option value="Power or Internet Outage">Power/Internet Outage</option>
+                    </select>
+                </div>
+                <button id="generate-email-btn" class="btn generate-btn">Generate Email</button>
+            </div>
+            
+            <div id="email-box" class="email-container hidden">
+                <textarea id="email-text" rows="8" readonly></textarea>
+                <button class="btn copy-btn">Copy to Clipboard</button>
+            </div>
+        </section>
+
+    </div> <!-- نهاية الـ app-container -->
+
+    <!-- ==========================================
+         7. نافذة الإعدادات (Pop-up Modal) المخفية
+         ========================================== -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button id="close-modal-btn" class="close-icon-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label>Agent Name:</label>
+                    <input type="text" id="settings-name-input" placeholder="Enter your name">
+                </div>
+                <button id="save-settings-btn" class="btn primary-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
