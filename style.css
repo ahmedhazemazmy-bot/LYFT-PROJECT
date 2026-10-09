@@ -1,0 +1,326 @@
+/* =========================================
+   1. المتغيرات والألوان (Lyft Dark Theme)
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --lyft-pink: #FF00BF;          
+    --lyft-pink-hover: #D400A0;    
+    --bg-dark: #0a0a0a;            
+    --card-bg: #161616;            
+    --text-main: #FFFFFF;          
+    --text-muted: #888888;         
+    --border-color: #2A2A2A;       
+    --missing-color: #FF3B30;      
+    --overtime-color: #32D74B;     
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    position: relative; /* عشان الترس يتربط بمقاس الأبلكيشن */
+}
+
+/* =========================================
+   2. حركات الدخول (Animations Keyframes)
+   ========================================= */
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 191, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 0, 191, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 191, 0); }
+}
+
+header { animation: slideUpFade 0.5s ease-out forwards; }
+.balance-card { animation: slideUpFade 0.5s ease-out 0.1s forwards; opacity: 0; }
+.schedule-section { animation: slideUpFade 0.5s ease-out 0.2s forwards; opacity: 0; }
+.main-action { animation: slideUpFade 0.5s ease-out 0.3s forwards; opacity: 0; }
+.aux-section { animation: slideUpFade 0.5s ease-out 0.4s forwards; opacity: 0; }
+.rta-section { animation: slideUpFade 0.5s ease-out 0.5s forwards; opacity: 0; }
+
+/* =========================================
+   3. الهيدر وزرار الإعدادات (الترس)
+   ========================================= */
+.settings-icon-btn {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.4s ease;
+    z-index: 10;
+    opacity: 0.6;
+}
+
+.settings-icon-btn:hover {
+    opacity: 1;
+    transform: rotate(90deg); /* حركة اللفة بتاعت الترس */
+    color: var(--lyft-pink);
+}
+
+.top-bar { margin-bottom: 25px; padding-top: 10px; }
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(255, 0, 191, 0.3);
+}
+
+.logo span { color: var(--lyft-pink); }
+
+.welcome-text { 
+    font-size: 18px; 
+    font-weight: 600; 
+    color: var(--text-muted); 
+}
+
+#agent-name {
+    color: var(--text-main);
+}
+
+/* =========================================
+   4. الكروت والأقسام
+   ========================================= */
+section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(255, 0, 191, 0.1);
+    border-color: #333;
+}
+
+h2 {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   5. رصيد الوقت والميسينج (MM:SS)
+   ========================================= */
+.balance-card {
+    display: flex;
+    gap: 15px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.balance-item {
+    flex: 1;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.balance-item:hover { transform: translateY(-3px); }
+
+.balance-item .label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+
+/* خانة الإدخال بتاعة الميسينج مينتس (شكلها رقم بس بتشتغل input) */
+.missing-input {
+    background: transparent;
+    border: 1px dashed transparent;
+    color: var(--missing-color);
+    font-size: 28px;
+    font-weight: 800;
+    width: 100px;
+    text-align: center;
+    outline: none;
+    cursor: text;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-family: inherit;
+    padding: 2px 0;
+}
+
+.missing-input:hover, .missing-input:focus {
+    border-color: rgba(255, 59, 48, 0.5);
+    background-color: rgba(255, 59, 48, 0.1);
+}
+
+#overtime-select { width: 90%; text-align: center; font-weight: 700; color: var(--overtime-color); font-size: 16px; }
+
+/* =========================================
+   6. القوائم المنسدلة (Dropdowns)
+   ========================================= */
+.input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.input-group label { font-size: 14px; font-weight: 600; color: #ccc; }
+
+select, input[type="text"] {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+select { width: 65%; cursor: pointer; appearance: none; }
+select:focus, select:hover, input[type="text"]:focus {
+    border-color: var(--lyft-pink);
+    box-shadow: 0 0 10px rgba(255, 0, 191, 0.2);
+}
+
+/* =========================================
+   7. زرار Available الضخم
+   ========================================= */
+.main-action { background: transparent; border: none; box-shadow: none; padding: 0; }
+.main-action:hover { transform: none; box-shadow: none; border: none; }
+
+.giant-btn {
+    width: 100%; background: linear-gradient(135deg, var(--lyft-pink), #a8007e); color: white;
+    font-size: 22px; font-weight: 800; padding: 25px; border: none; border-radius: 20px;
+    cursor: pointer; letter-spacing: 2px; box-shadow: 0 8px 25px rgba(255, 0, 191, 0.4);
+    transition: all 0.2s ease; animation: pulseGlow 2s infinite;
+}
+
+.giant-btn:hover {
+    background: linear-gradient(135deg, #ff1ac7, #c20092); transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255, 0, 191, 0.6);
+}
+
+.giant-btn:active { transform: scale(0.96); box-shadow: 0 4px 15px rgba(255, 0, 191, 0.3); }
+
+/* =========================================
+   8. زراير الـ AUX
+   ========================================= */
+.clean-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.aux-btn { background-color: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-color); padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.aux-btn:hover { border-color: var(--lyft-pink); color: var(--lyft-pink); background-color: rgba(255, 0, 191, 0.05); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 0, 191, 0.1); }
+.aux-btn.used, .bubble-btn.used { background-color: rgba(255, 0, 191, 0.15) !important; border-color: var(--lyft-pink) !important; color: var(--lyft-pink) !important; box-shadow: inset 0 0 10px rgba(255, 0, 191, 0.2); transform: scale(0.98); }
+.aux-btn.used::after, .bubble-btn.used::after { content: ' ✔'; font-weight: 800; }
+
+.login-prep-area { display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-dark); padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); }
+.prep-title { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+.prep-bubbles { display: flex; gap: 10px; }
+.bubble-btn { background-color: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+.bubble-btn:hover { color: var(--text-main); border-color: var(--lyft-pink); background-color: var(--lyft-pink); box-shadow: 0 4px 10px rgba(255, 0, 191, 0.3); transform: scale(1.05); }
+
+/* =========================================
+   9. إيميل الأعذار والتأخير
+   ========================================= */
+.btn { width: 100%; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; }
+.generate-btn { background-color: transparent; color: var(--lyft-pink); border: 1px solid var(--lyft-pink); margin-top: 15px; }
+.generate-btn:hover { background-color: var(--lyft-pink); color: white; box-shadow: 0 5px 15px rgba(255, 0, 191, 0.3); }
+
+textarea { width: 100%; background-color: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-color); padding: 15px; border-radius: 12px; font-family: inherit; resize: none; margin-top: 15px; transition: 0.3s; }
+textarea:focus { border-color: var(--lyft-pink); box-shadow: 0 0 12px rgba(255, 0, 191, 0.2); outline: none; }
+.copy-btn { background-color: #2a2a2a; color: white; margin-top: 10px; }
+.copy-btn:hover { background-color: #444; }
+.hidden { display: none !important; }
+
+/* العداد */
+.timer-box { text-align: center; padding: 25px; background-color: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
+.timer-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
+.timer-box h2 { font-size: 38px; color: var(--lyft-pink); margin: 0; letter-spacing: 2px; text-shadow: 0 0 15px rgba(255, 0, 191, 0.4);}
+.timer-controls { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+.control-btn { background-color: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease; }
+.control-btn:hover { border-color: var(--lyft-pink); color: var(--lyft-pink); box-shadow: 0 4px 10px rgba(255, 0, 191, 0.2); }
+.control-btn.paused { color: var(--missing-color); border-color: var(--missing-color); box-shadow: 0 4px 10px rgba(255, 59, 48, 0.2); }
+
+/* =========================================
+   10. نافذة الإعدادات (Modal)
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 25px;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    animation: slideUpFade 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    color: var(--lyft-pink);
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-icon-btn:hover { color: var(--missing-color); }
+
+#settings-name-input { width: 100%; }
+
+.primary-btn {
+    background: var(--lyft-pink);
+    color: white;
+    margin-top: 20px;
+}
+
+.primary-btn:hover {
+    background: var(--lyft-pink-hover);
+    box-shadow: 0 5px 15px rgba(255, 0, 191, 0.4);
+}
